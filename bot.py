@@ -35,4 +35,11 @@ async def ban_error(ctx, error):
     elif isinstance(error, commands.MemberNotFound):
         await ctx.send("Kullanıcı bulunamadı.")  # Belirtilen kullanıcı bulunamazsa bir hata mesajı gönderme
 
+@bot.event
+async def on_message(message):
+    if "http://" in message.content or "https://" in message.content:
+        await message.guild.ban(message.author, reason="Link paylaşma.")  # Mesajda bir bağlantı varsa, kullanıcıyı yasaklama
+        await message.channel.send(f"{message.author.mention}, bağlantı paylaşmak yasaktır!")
+    await bot.process_commands(message)
+
 bot.run(token)  # Kimlik doğrulama için token kullanarak botu başlatma
