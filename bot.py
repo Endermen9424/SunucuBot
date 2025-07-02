@@ -42,4 +42,11 @@ async def on_message(message):
         await message.channel.send(f"{message.author.mention}, bağlantı paylaşmak yasaktır!")
     await bot.process_commands(message)
 
+@bot.event
+async def on_member_join(member):
+    # Karşılama mesajı gönderme
+    for channel in member.guild.text_channels:
+        await channel.send(f""" Hoş geldiniz: , {member.mention}!\nSunucu kuralları gayet basit:\n
+                           1-link paylaşmak yasak.""")  # Yeni üye sunucuya katıldığında bir hoş geldin mesajı gönderme
+
 bot.run(token)  # Kimlik doğrulama için token kullanarak botu başlatma
